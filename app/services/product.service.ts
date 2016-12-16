@@ -28,6 +28,12 @@ export class ProductService {
         |                                                                  |
         |   _sort=publishedDate&_order=DESC                                |
         |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+        
+        if (filter === null) {
+            return this._http
+                   .get(`${this._backendUri}/products?_sort=publishedDate&_order=DESC`)
+                   .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
+        }
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
         | Red Path                                                         |
@@ -44,6 +50,22 @@ export class ProductService {
         |   - Búsqueda por categoría:                                      |
         |       category.id=x (siendo x el identificador de la categoría)  |
         |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+        if (filter !== null) {
+            if (filter.text !== undefined && filter.category !== undefined) {
+                return this._http
+                   .get(`${this._backendUri}/products?q=${filter.text}&category.id=${filter.category}`)
+                   .map((data: Response): Product[] => Product.fromJsonToList(data.json()));       
+            } else if (filter.text !== undefined) {
+                return this._http
+                   .get(`${this._backendUri}/products?q=${filter.text}`)
+                   .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
+            } else {
+                return this._http
+                   .get(`${this._backendUri}/products?category.id=${filter.category}`)
+                   .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
+            }
+        }
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
         | Yellow Path                                                      |
@@ -62,6 +84,7 @@ export class ProductService {
         return this._http
                    .get(`${this._backendUri}/products?_sort=publishedDate&_order=DESC`)
                    .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
+
     }
 
     getProduct(productId: number): Observable<Product> {
