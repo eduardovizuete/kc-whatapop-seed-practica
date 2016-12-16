@@ -60,7 +60,7 @@ export class ProductService {
                 return this._http
                    .get(`${this._backendUri}/products?q=${filter.text}`)
                    .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
-            } else {
+            } else if (filter.category !== undefined) {
                 return this._http
                    .get(`${this._backendUri}/products?category.id=${filter.category}`)
                    .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
@@ -80,6 +80,14 @@ export class ProductService {
         |   - Búsqueda por estado:                                         |
         |       state=x (siendo x el estado)                               |
         |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+        if (filter !== null) {
+            if (filter.state !== undefined) {
+                return this._http
+                   .get(`${this._backendUri}/products?state=${filter.state}`)
+                   .map((data: Response): Product[] => Product.fromJsonToList(data.json()));       
+            }
+        }
 
         return this._http
                    .get(`${this._backendUri}/products?_sort=publishedDate&_order=DESC`)
