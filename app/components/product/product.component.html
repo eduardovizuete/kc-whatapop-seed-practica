@@ -17,6 +17,7 @@
     |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
     <button
+        (click)="notificarProductoSeleccionado(data)"
         class="button expanded"
         [class.success]="data.state === 'selling'"
         [class.secondary]="data.state === 'sold'">
