@@ -1,0 +1,17 @@
+<div class="product-like">
+    <div class="row">
+        <div class="small-4 small-offset-4 medium-4 medium-offset-4 large-2 large-offset-5 columns">
+            <!--img [src]="getImageSrc()" class="thumbnail" /-->
+            <button (click)="addLike()">    
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            </button>
+            
+            {{ _numLikes }}
+        </div>
+    </div>
+    <div>
+        <p class="text-center">
+            <!--strong>{{ user?.name }}</strong> | {{ user?.nick }}-->
+        </p>
+    </div>
+</div>
