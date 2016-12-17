@@ -16,6 +16,8 @@ export class ProductsCollectionComponent implements OnDestroy, OnInit {
     private _products: Product[];
     private _filterStream$: Subject<ProductFilter> = new Subject;
 
+    sentidoOrdenacion: string = "asc";
+
     constructor(
         private _productService: ProductService,
         private _router: Router) { }
@@ -47,5 +49,9 @@ export class ProductsCollectionComponent implements OnDestroy, OnInit {
 
     verDetallesProducto(data: Product): void {
         this._router.navigate(["/products", data.id]);
+    }
+
+    cambiarOrden(): void {
+        this.sentidoOrdenacion = this.sentidoOrdenacion === "asc" ? "desc" : "asc";
     }
 }

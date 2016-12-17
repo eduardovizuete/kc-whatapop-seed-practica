@@ -21,6 +21,7 @@ import { SoldProductsResolve } from "./services/sold-products-resolve.service";
 import { UserProfileComponent } from "./components/user-profile/user-profile.component";
 import { UserService } from "./services/user.service";
 import { ProductLikeComponent } from "./components/product-like/product-like.component";
+import { ProductNameOrderPipe } from "./pipes/product-name-order.pipe";
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
 | Blue Path                                                        |
@@ -46,7 +47,8 @@ import { PublicationDatePipe } from "./pipes/publication-date.pipe";
         ProductsCollectionComponent,
         UserProfileComponent,
         PublicationDatePipe,
-        ProductLikeComponent
+        ProductLikeComponent,
+        ProductNameOrderPipe
     ],
     providers: [
         BackendUriProvider,

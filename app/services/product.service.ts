@@ -87,6 +87,13 @@ export class ProductService {
                    .get(`${this._backendUri}/products?state=${filter.state}`)
                    .map((data: Response): Product[] => Product.fromJsonToList(data.json()));       
             }
+
+            // busqueda por rango
+            if (filter.rangeFrom !== undefined && filter.rangeTo !== undefined) {
+                return this._http
+                   .get(`${this._backendUri}/products?price_gte=${filter.rangeFrom}&price_lte=${filter.rangeTo}`)
+                   .map((data: Response): Product[] => Product.fromJsonToList(data.json()));       
+            }
         }
 
         return this._http
